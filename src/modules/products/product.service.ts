@@ -8,6 +8,12 @@ const createProduct = async (payLoad:TProduct) =>{
     return result; 
 };
 
+//to get all products, need to make a service which is called by controller
+const getAllProducts = async () =>{ // here we dont need to send anything
+    const result = await ProductModel.find();
+    return result; 
+};
+
 export const ProductServices = {
-    createProduct
+    createProduct, getAllProducts
 }
