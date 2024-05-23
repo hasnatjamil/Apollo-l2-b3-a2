@@ -39,7 +39,7 @@ const getAllProducts = async (req: Request, res: Response) => {
     }
 };
 
-//to get a specifiq product regarding its id we can make a controller
+//to get a specifiq product regarding its id, we need to make a controller
 const getAProductById = async (req: Request, res: Response) => {
 
     try {
@@ -63,6 +63,69 @@ const getAProductById = async (req: Request, res: Response) => {
     }
 };
 
+
+//to update specifiq product properties regarding its product id, we will make a update controller for this
+const updateProduct = async (req: Request, res: Response) => {
+    try {
+
+        const { productId } = req.params;
+        const { productData } = req.body;
+        const result = await ProductServices.updateProduct(productId, productData);
+
+        if (!result) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found",
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: "Product updated successfully!",
+            data: result,
+        });
+
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to update product",
+            error: error.message
+        })
+
+    }
+}
+
+//delete product controller 
+
+const deleteProduct = async (req: Request, res: Response) => {
+    try {
+        const { productId } = req.params;
+        const result = await ProductServices.deleteProduct(productId);
+
+        if (!result) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found!",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Product deleted successfully!",
+            data: result,
+        });
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: "An error occurred while deleting the product.",
+            error: error.message,
+        });
+    }
+};
+
 export const ProductControllers = {
-    createProduct, getAllProducts, getAProductById,
+    createProduct, 
+    getAllProducts, 
+    getAProductById, 
+    updateProduct,
+    deleteProduct
 }

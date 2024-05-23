@@ -20,6 +20,36 @@ const getAProductById = async (id: string) =>{
     return result; 
 };
 
+//update service function
+const updateProduct = async (id: string, updateData: Partial<TProduct>) => {
+    const result = await ProductModel.findByIdAndUpdate(id, updateData, { new: true });
+    return result;
+};
+
+//delete service to delete specific product 
+const deleteProduct = async (id: string) => {
+    const result = await ProductModel.findByIdAndDelete(id);
+    return result;
+};
+
+//search a specific product creating by service where search will be done according to search term
+const searchProducts = async (searchTerm: string) => {
+    const regex = new RegExp(searchTerm, 'i'); // 'i' makes it case-insensitive
+    const result = await ProductModel.find({
+        $or: [
+            { name: { $regex: regex } },
+            { tags: { $regex: regex } }
+        ]
+    });
+    return result;
+};
+
+
 export const ProductServices = {
-    createProduct, getAllProducts,getAProductById
+    createProduct, 
+    getAllProducts,
+    getAProductById,
+    updateProduct,
+    deleteProduct,
+    searchProducts,
 }
