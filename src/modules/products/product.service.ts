@@ -14,6 +14,12 @@ const getAllProducts = async () =>{ // here we dont need to send anything
     return result; 
 };
 
+//to get specifiq product regarding its id we need to make a service 
+const getAProductById = async (id: string) =>{ 
+    const result = await ProductModel.findById(id);
+    return result; 
+};
+
 export const ProductServices = {
-    createProduct, getAllProducts
+    createProduct, getAllProducts,getAProductById
 }

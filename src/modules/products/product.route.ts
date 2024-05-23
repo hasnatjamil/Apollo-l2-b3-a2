@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.post('/',ProductControllers.createProduct);
 router.get('/',ProductControllers.getAllProducts);
+// make a route that hits to controller to get specifiq data requesting by id then we need to make controller regarding this 
+router.get('/:productId',ProductControllers.getAProductById);
 
 export const ProductRoutes = router;
 

@@ -39,6 +39,30 @@ const getAllProducts = async (req: Request, res: Response) => {
     }
 };
 
+//to get a specifiq product regarding its id we can make a controller
+const getAProductById = async (req: Request, res: Response) => {
+
+    try {
+
+        const { productId } = req.params; //destructured and id will come using request param
+        const result = await ProductServices.getAProductById(productId); //getAProductById controller calls the 
+        //ProductServices named getAProductById  
+
+        res.status(200).json({
+            success: true,
+            message: "Product fetched succesfully!",
+            data: result,
+        });
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: "Product not found!",
+            error: error,
+
+        });
+    }
+};
+
 export const ProductControllers = {
-    createProduct, getAllProducts,
+    createProduct, getAllProducts, getAProductById,
 }
