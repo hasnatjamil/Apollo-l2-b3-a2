@@ -8,8 +8,15 @@ const createOrder = async (orderLoad:IOrder) =>{
     return result; 
 };
 
+//to get all orders, need to make a service which is called by controller
+const getAllOrders = async () =>{ // here we dont need to send anything
+    const result = await OrderModel.find();
+    return result; 
+};
+
 
 export const OrderServices = {
     createOrder, 
+    getAllOrders,
     
 }

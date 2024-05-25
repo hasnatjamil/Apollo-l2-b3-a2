@@ -7,7 +7,8 @@ const router = express.Router();
 
 router.post('/', OrderControllers.createOrder);
 
-//router.get('/', ProductControllers.getAllProducts);
+//get all order from backend 
+router.get('/', OrderControllers.getAllOrders);
 
 // make a route that hits to controller to get specifiq data requesting by id then we need to make controller regarding this 
 //router.get('/:productId', ProductControllers.getAProductById);
