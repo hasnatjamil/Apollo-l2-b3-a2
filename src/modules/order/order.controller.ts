@@ -23,7 +23,7 @@ const getAllOrders = async(req:Request, res:Response) =>{
             message: "Orders retrived succesfully!",
             data: result,
         });
-    } catch (error: any) {
+    } catch (error) {
         res.status(500).json({
             success: false,
             message: "Order not found!",
@@ -50,11 +50,11 @@ const getOrdersByEmail = async (req: Request, res: Response) => {
             message: "Orders fetched successfully for user email!",
             data: orders
         });
-    } catch (error: any) {
+    } catch (error) {
         res.status(500).json({
             success: false,
             message: "Failed to fetch orders!",
-            error: error.message
+            error: error,
         });
     }
 };

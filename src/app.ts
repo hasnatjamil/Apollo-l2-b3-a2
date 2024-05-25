@@ -16,6 +16,6 @@ app.get('/', (req: Request , res: Response) => {
   res.send('Hello Worlsssss!')
 })
 
-app.use("/api/order", OrderRoutes)
+app.use("/api/orders", OrderRoutes)
 
 export default app;
