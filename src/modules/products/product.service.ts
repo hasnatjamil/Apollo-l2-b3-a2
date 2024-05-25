@@ -34,16 +34,17 @@ const deleteProduct = async (id: string) => {
 
 //search a specific product creating by service where search will be done according to search term
 const searchProducts = async (searchTerm: string) => {
-    const regex = new RegExp(searchTerm, 'i'); // 'i' makes it case-insensitive
+    const searchRegex = new RegExp(searchTerm, 'i'); 
     const result = await ProductModel.find({
         $or: [
-            { name: { $regex: regex } },
-            { tags: { $regex: regex } }
+            { name: { $regex: searchRegex } },
+            { description: { $regex: searchRegex } },
+            { tags: { $regex: searchRegex } }
         ]
     });
+
     return result;
 };
-
 
 export const ProductServices = {
     createProduct, 

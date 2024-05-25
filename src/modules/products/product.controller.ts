@@ -95,7 +95,6 @@ const updateProduct = async (req: Request, res: Response) => {
 }
 
 //delete product controller 
-
 const deleteProduct = async (req: Request, res: Response) => {
     try {
         const { productId } = req.params;
@@ -122,10 +121,39 @@ const deleteProduct = async (req: Request, res: Response) => {
     }
 };
 
+//search a product from mongodb - controller
+const searchProducts = async (req: Request, res: Response) => {
+    
+    const { searchTerm } = req.query as { searchTerm: string };
+    if (!searchTerm || typeof searchTerm !== 'string') {
+        return res.status(400).json({
+            success: false,
+            message: "Invalid search term!",
+        });
+    }
+    try {
+        const result = await ProductServices.searchProducts(searchTerm);
+        res.json({
+            success: true,
+            message: `Products matching search term '${searchTerm}' fetched successfully!`,
+            data: result,
+        });
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: "An error occurred while searching for products.",
+            error: error.message,
+        });
+    }
+};
+
+
+
 export const ProductControllers = {
     createProduct, 
     getAllProducts, 
     getAProductById, 
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    searchProducts,
 }
